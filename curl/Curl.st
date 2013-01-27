@@ -4,9 +4,7 @@ Curl comment:
   'A basic Curl unix wrapper'.
 
 Curl class extend [
-  new [
-    ^super new.
-  ]
+  new [ ^(super new) init. ]
 
   version [
     Curl exec: '--version'.
@@ -24,27 +22,80 @@ Curl class extend [
 ]
 
 Curl extend [
-  |url|
+  |host url uri data query port protocol|
 
-  url: aUrl [
-    url := aUrl
+  init [
+    host      := ''.
+    url       := ''.
+    uri       := ''.
+    data      := Dictionary new.
+    query     := '?'.
+    port      := 0.
+    protocol  := 'http'.
+
+    ^self.
   ]
 
-  query: [:key :value |
-    apikey printNl.
+  setPort: aPort [
+    port := aPort.
+    ^self.
   ]
 
-  setUrl: aUrl [
-    self url: aUrl
+  data [
+    ^data.
+  ]
+
+  setQuery: key and: value [
+    (query == nil) ifTrue: [
+      query := key.
+      (value size > 0) ifTrue: [
+        query := query, '=', value.
+      ]
+    ] ifFalse: [
+      (query size == 1) ifTrue: [
+        query := query, key, '=', value.
+      ] ifFalse: [
+        query := query, '&', key, '=', value.
+      ]
+    ].
+
+    ^self.
+  ]
+
+  setUri: aUri [
+    uri := aUri.
+    ^self.
+  ]
+
+  setHost: aHost [
+    host := aHost.
+    ^self.
   ]
 
   request [
-    Curl exec: url
+    url := protocol, '://', host.
+
+    (port ~= 80 & port > 0) ifTrue: [
+        url := url, ':', port asString.
+    ].
+
+    (url size > 0) ifTrue: [
+      url := url, '/', uri.
+    ].
+
+    (query size > 1) ifTrue: [
+      url := url, query.
+    ].
+
+    ^Curl exec: url.
   ]
 ]
 
 "Curl request: 'http://localhost:4000/v1/account?apikey=ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'."
 
 c := Curl new.
-c setUrl: 'http://localhost:4000/v1/account'.
-c query: 'apikey' 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'.
+c setHost: 'localhost'.
+c setPort: 4000.
+c setUri: 'v1/account'.
+c setQuery: 'apikey' and: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'.
+c request.
