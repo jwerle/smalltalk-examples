@@ -299,7 +299,7 @@ Curl extend [
     ].
 
     "Attach the HTTP method type part"
-    url := url, '-X ', type.
+    url := url, ' -X ', type.
 
     "Execute the request"
     Curl exec: url.

@@ -48,7 +48,7 @@ PackageLoader fileInPackage: 'Curl'.
 
 c := Curl new. "Create new Curl Object"
 c opt: Curl OPT_FOLLOWLOCATION is: true; "Set follow location opt"
-  host: 'localhost'; port: 4000; uri: 'my/resourse'; "Set the host, port, and URI parts"
+  host: 'localhost'; port: 4000; uri: 'my/resource'; "Set the host, port, and URI parts"
   query: "Set the query"
     'secret' value: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'. "&secret=ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a"
 
