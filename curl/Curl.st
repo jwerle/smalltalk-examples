@@ -42,9 +42,7 @@ Curl extend [
     @message host
     @return host {String}
   "
-  host [
-    ^host.
-  ]
+  host [ ^host. ]
 
   "
     Getter for the host instance variable
@@ -52,9 +50,7 @@ Curl extend [
     @message url
     @return url {String}
   "
-  url [
-    ^url.
-  ]
+  url [ ^url. ]
 
   "
     Getter for the uri instance variable
@@ -62,9 +58,7 @@ Curl extend [
     @message uri
     @return uri {String}
   "
-  uri [
-    ^uri.
-  ]
+  uri [ ^uri. ]
 
   "
     Getter for the data instance variable
@@ -72,9 +66,7 @@ Curl extend [
     @message data
     @return data {Dictionary}
   "
-  data [
-    ^data.
-  ]
+  data [ ^data. ]
 
   "
     Getter for the query instance variable
@@ -82,9 +74,7 @@ Curl extend [
     @message query
     @return query {String}
   "
-  query [
-    ^query.
-  ]
+  query [ ^query. ]
 
   "
     Getter for the port instance variable
@@ -92,9 +82,7 @@ Curl extend [
     @message port
     @return port {Integer}
   "
-  port [
-    ^port.
-  ]
+  port [ ^port. ]
 
   "
     Getter for the protocol instance variable
@@ -102,9 +90,7 @@ Curl extend [
     @message protocol
     @return protocol {String}
   "
-  protocol [
-    ^protocol.
-  ]
+  protocol [ ^protocol. ]
 
   "
     Getter for the opts instance variable
@@ -112,9 +98,7 @@ Curl extend [
     @message opts
     @return opts {Dictionary}
   "
-  opts [
-    ^opts.
-  ]
+  opts [ ^opts. ]
 
   "
     Getter for the host instance variable
@@ -122,9 +106,7 @@ Curl extend [
     @message host
     @return host {String}
   "
-  host [
-    ^host.
-  ]
+  host [ ^host. ]
 
   "
     Initializes the Curl instance object
@@ -136,11 +118,11 @@ Curl extend [
     host      := ''.
     url       := ''.
     uri       := ''.
-    opts      := Dictionary new.
-    data      := Dictionary new.
     query     := '?'.
     port      := 0.
     protocol  := 'http'.
+    opts      := Dictionary new.
+    data      := Dictionary new.
 
     ^self.
   ]
@@ -153,7 +135,7 @@ Curl extend [
     @param value - Value of the option, if the value is 'true' then the value is not appended
     @return self
   "
-  opt: opt and: value [
+  opt: opt is: value [
     opts at: opt put: value.
 
     ^self.
