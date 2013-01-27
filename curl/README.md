@@ -20,6 +20,7 @@ $ brew install gnu-smalltalk
 ```sh
 $ git clone git@github.com:jwerle/smalltalk-examples.git
 $ cd smalltalk-examples/curl
+$ gst-package package.xml
 $ gst
 ```
 
