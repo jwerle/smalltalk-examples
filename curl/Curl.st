@@ -1,11 +1,15 @@
 Object subclass: #Curl.
 
+
+CURL_FOLLOWLOCATION := '--location'.
+
 Curl comment:
   'A basic Curl unix wrapper'.
 
 Curl class extend [
   new [ ^(super new) init. ]
 
+  FOLLOWLOCATION  [ ^'--location'. ]
   version [
     Curl exec: '--version'.
   ]
@@ -22,16 +26,23 @@ Curl class extend [
 ]
 
 Curl extend [
-  |host url uri data query port protocol|
+  |host url uri data query port protocol opts|
 
   init [
     host      := ''.
     url       := ''.
     uri       := ''.
+    opts      := Dictionary new.
     data      := Dictionary new.
     query     := '?'.
     port      := 0.
     protocol  := 'http'.
+
+    ^self.
+  ]
+
+  setOpt: opt and: value [
+    opts at: opt put: value.
 
     ^self.
   ]
@@ -67,35 +78,44 @@ Curl extend [
     ^self.
   ]
 
+  setUrl: aUrl [
+    url := aUrl.
+    ^self.
+  ]
+
   setHost: aHost [
     host := aHost.
     ^self.
   ]
 
   request [
-    url := protocol, '://', host.
-
-    (port ~= 80 & port > 0) ifTrue: [
-        url := url, ':', port asString.
-    ].
-
     (url size > 0) ifTrue: [
-      url := url, '/', uri.
+      url := url
+    ] ifFalse: [
+      url := protocol, '://', host.
+
+      (port ~= 80 & port > 0) ifTrue: [
+        url := url, ':', port asString.
+      ].
+
+      (url size > 0) ifTrue: [
+        url := url, '/', uri.
+      ].
+
+      (query size > 1) ifTrue: [
+        url := url, query.
+      ].
     ].
 
-    (query size > 1) ifTrue: [
-      url := url, query.
+    opts keysAndValuesDo: [:opt :value |
+      (opt size > 0) ifTrue: [
+        url := url, ' ', opt.
+        (value size > 0 & value ~= true) ifTrue: [
+          url := url, ' ', value.
+        ]
+      ]
     ].
 
     ^Curl exec: url.
   ]
 ]
-
-"Curl request: 'http://localhost:4000/v1/account?apikey=ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'."
-
-c := Curl new.
-c setHost: 'localhost'.
-c setPort: 4000.
-c setUri: 'v1/account'.
-c setQuery: 'apikey' and: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'.
-c request.
