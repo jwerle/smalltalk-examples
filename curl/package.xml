@@ -1,0 +1,5 @@
+<package>
+  <name>Curl</name>
+  <file>Curl.st</file>
+  <filein>Curl.st</filein>
+</package>
