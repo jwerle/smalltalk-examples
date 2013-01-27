@@ -27,6 +27,11 @@ $ cd smalltalk-examples/curl
 $ gst-package package.xml
 $ gst
 ```
+## Building
+From the source directory:
+```sh
+$ make build
+```
 
 ## Usage
 ### Execute static request message with url argument
