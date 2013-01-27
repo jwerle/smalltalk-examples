@@ -18,6 +18,10 @@ $ brew install gnu-smalltalk
 
 ## Install
 ```sh
+$ git clone git@github.com:jwerle/smalltalk-examples.git && gst-package smalltalk-examples/curl/Release/Curl.star && gst
+```
+**OR**
+```sh
 $ git clone git@github.com:jwerle/smalltalk-examples.git
 $ cd smalltalk-examples/curl
 $ gst-package package.xml
