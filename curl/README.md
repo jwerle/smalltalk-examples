@@ -29,21 +29,23 @@ $ gst
 ```
 
 ## Usage
+### Execute static request message with url argument
 ```st
 "Load the package"
 PackageLoader fileInPackage: 'Curl'.
 
-"Execute static request message with url argument"
-Curl request: 'http://everybit.co'.
+Curl request: 'http://example.com'.
 ```
-
+### Object Oriented approach
 ```st
 "Load the package"
 PackageLoader fileInPackage: 'Curl'.
 
-"Object Oriented approach"
-c := Curl new.
-c setHost: 'everybit.co'.
-c setOpt: Curl FOLLOWLOCATION and: true.
-c request.
+c := Curl new. "Create new Curl Object"
+c opt: Curl OPT_FOLLOWLOCATION and: true; "Set follow location opt"
+  host: 'localhost'; port: 4000; uri: 'my/resourse'; "Set the host, port, and URI parts"
+  query: "Set the query"
+    'secret' value: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'. "&secret=ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a"
+
+c request. "Execute a GET request by default"
 ```
