@@ -59,5 +59,5 @@ curl host: 'localhost'; port: 4000; uri: 'my/resource'.
 curl query: 'secret' value: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'.
 
 "Execute a GET request by default"
-c request.
+curl GET.
 ```
