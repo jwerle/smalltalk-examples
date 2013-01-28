@@ -25,10 +25,11 @@ Curl class extend [
     Smalltalk system: 'curl ', cmd.
   ]
 
-  request: url [|c|
-    c := super new.
-    c setUrl: url.
-    ^c request
+  request: aUrl [|c|
+    c := self new.
+    c opt: Curl OPT_FOLLOWLOCATION value: true. 
+    c url: aUrl.
+    ^c request.
   ]
 ]
 
@@ -135,7 +136,7 @@ Curl extend [
     @param value - Value of the option, if the value is 'true' then the value is not appended
     @return self
   "
-  opt: opt is: value [
+  opt: opt value: value [
     opts at: opt put: value.
 
     ^self.

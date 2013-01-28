@@ -46,11 +46,18 @@ Curl request: 'http://example.com'.
 "Load the package"
 PackageLoader fileInPackage: 'Curl'.
 
-c := Curl new. "Create new Curl Object"
-c opt: Curl OPT_FOLLOWLOCATION is: true; "Set follow location opt"
-  host: 'localhost'; port: 4000; uri: 'my/resource'; "Set the host, port, and URI parts"
-  query: "Set the query"
-    'secret' value: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'. "&secret=ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a"
+"Create new Curl Object"
+curl := Curl new. 
 
-c request. "Execute a GET request by default"
+"Set follow location opt"
+curl opt: Curl OPT_FOLLOWLOCATION value: true. 
+
+"Set the host, port, and URI parts"
+curl host: 'localhost'; port: 4000; uri: 'my/resource'. 
+
+"Set the query as '%secret=ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'"
+curl query: 'secret' value: 'ed19b29410b801f2c7d2e7ff49802a6e734987fbce5b7a024c73652a'.
+
+"Execute a GET request by default"
+c request.
 ```
